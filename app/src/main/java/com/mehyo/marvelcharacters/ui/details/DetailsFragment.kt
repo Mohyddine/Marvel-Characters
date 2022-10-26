@@ -1,22 +1,22 @@
-package com.mehyo.marvelcharacters
+package com.mehyo.marvelcharacters.ui.details
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mehyo.marvelcharacters.databinding.FragmentListBinding
+import androidx.fragment.app.Fragment
+import com.mehyo.marvelcharacters.databinding.FragmentDetailsBinding
 
-class ListFragment : Fragment() {
+class DetailsFragment : Fragment() {
 
-    private var _binding: FragmentListBinding? = null
+    private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -7,8 +7,17 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.mehyo.marvelcharacters.ListFragment"
+        android:name="com.mehyo.marvelcharacters.ui.characters.ListFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_listFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.mehyo.marvelcharacters.ui.details.DetailsFragment"
+        android:label="@string/character_details"
+        tools:layout="@layout/fragment_details" />
 
 </navigation>
