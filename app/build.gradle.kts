@@ -42,6 +42,7 @@ dependencies {
     val navVersion = "2.5.3"
     val lifecycleVersion = "2.5.1"
     val retrofitVersion = "2.9.0"
+    val okhttpVersion = "4.10.0"
     val coroutinesVersion = "1.6.4"
     val gsonVersion = "2.10"
     val coilVersion = "2.2.2"
@@ -63,7 +64,8 @@ dependencies {
 
     //retrofit library for http requests and Gson converter
     implementation( "com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation( "com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
 
     //Google Gson
     implementation( "com.google.code.gson:gson:$gsonVersion")
