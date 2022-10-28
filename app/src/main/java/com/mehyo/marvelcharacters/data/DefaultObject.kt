@@ -1,8 +1,8 @@
 package com.mehyo.marvelcharacters.data
 
-data class Character(
+data class DefaultObject(
     val id: Int,
-    val name: String?,
+    val title: String?,
     val description: String?,
     val thumbnail: Thumbnail?
 )
