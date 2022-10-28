@@ -48,19 +48,22 @@ dependencies {
     val coilVersion = "2.2.2"
 
     // Koin main features for Android (Scope,ViewModel ...)
-    implementation( "io.insert-koin:koin-android:$koinVersion")
+    implementation("io.insert-koin:koin-android:$koinVersion")
 
     //kotlin coroutines
-    implementation( "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+
+    //The Paging Library helps you load and display small chunks of data at a time
+    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
 
     //Nav
-    implementation( "androidx.navigation:navigation-fragment-ktx:$navVersion")
-    implementation( "androidx.navigation:navigation-ui-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
     //LifeCycle
-    implementation( "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    implementation( "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
-    implementation( "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
 
     //retrofit library for http requests and Gson converter
     implementation( "com.squareup.retrofit2:retrofit:$retrofitVersion")

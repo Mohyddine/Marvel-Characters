@@ -22,6 +22,46 @@ class NetworkRepository(private val api: MarvelAPI) {
 
     suspend fun getCharacterById(
         characterId: Int
-    ) = api.getPostById(characterId)
+    ) = api.getCharacterById(characterId)
+
+    /**
+     * suspending function to
+     * get character Comics by id from API.
+     * @return the requested Comics.
+     */
+
+    suspend fun getCharacterComicsById(
+        characterId: Int
+    ) = api.getCharacterComicsById(characterId)
+
+    /**
+     * suspending function to
+     * get character Events by id from API.
+     * @return the requested Events.
+     */
+
+    suspend fun getCharacterEventsById(
+        characterId: Int
+    ) = api.getCharacterEventsById(characterId)
+
+    /**
+     * suspending function to
+     * get character Stories by id from API.
+     * @return the requested Stories.
+     */
+
+    suspend fun getCharacterStoriesById(
+        characterId: Int
+    ) = api.getCharacterStoriesById(characterId)
+
+    /**
+     * suspending function to
+     * get character Series by id from API.
+     * @return the requested Series.
+     */
+
+    suspend fun getCharacterSeriesById(
+        characterId: Int
+    ) = api.getCharacterSeriesById(characterId)
 
 }
