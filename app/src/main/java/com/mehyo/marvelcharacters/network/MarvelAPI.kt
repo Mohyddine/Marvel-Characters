@@ -1,6 +1,8 @@
 package com.mehyo.marvelcharacters.network
 
 import com.mehyo.marvelcharacters.data.BaseResponse
+import com.mehyo.marvelcharacters.data.Character
+import com.mehyo.marvelcharacters.data.DefaultObject
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -22,7 +24,7 @@ interface MarvelAPI {
         @Query("ts") ts: Int = 1,
         @Query("apikey") apikey: String = this.apikey,
         @Query("hash") hash: String = this.hash
-    ): Response<BaseResponse>
+    ): Response<BaseResponse<Character>>
 
     /**
      * suspending function for GET "characters/{characterId}" network call to
@@ -36,7 +38,7 @@ interface MarvelAPI {
         @Query("ts") ts: Int = 1,
         @Query("apikey") apikey: String = this.apikey,
         @Query("hash") hash: String = this.hash
-    ): Response<BaseResponse>
+    ): Response<BaseResponse<Character>>
 
     /**
      * suspending function for GET "characters/{characterId}/comics" network call to
@@ -52,7 +54,7 @@ interface MarvelAPI {
         @Query("ts") ts: Int = 1,
         @Query("apikey") apikey: String = this.apikey,
         @Query("hash") hash: String = this.hash
-    ): Response<BaseResponse>
+    ): Response<BaseResponse<DefaultObject>>
 
     /**
      * suspending function for GET "characters/{characterId}/events" network call to
@@ -68,7 +70,7 @@ interface MarvelAPI {
         @Query("ts") ts: Int = 1,
         @Query("apikey") apikey: String = this.apikey,
         @Query("hash") hash: String = this.hash
-    ): Response<BaseResponse>
+    ): Response<BaseResponse<DefaultObject>>
 
     /**
      * suspending function for GET "characters/{characterId}/stories" network call to
@@ -84,7 +86,7 @@ interface MarvelAPI {
         @Query("ts") ts: Int = 1,
         @Query("apikey") apikey: String = this.apikey,
         @Query("hash") hash: String = this.hash
-    ): Response<BaseResponse>
+    ): Response<BaseResponse<DefaultObject>>
 
     /**
      * suspending function for GET "characters/{characterId}/series" network call to
@@ -100,6 +102,6 @@ interface MarvelAPI {
         @Query("ts") ts: Int = 1,
         @Query("apikey") apikey: String = this.apikey,
         @Query("hash") hash: String = this.hash
-    ): Response<BaseResponse>
+    ): Response<BaseResponse<DefaultObject>>
 
 }
