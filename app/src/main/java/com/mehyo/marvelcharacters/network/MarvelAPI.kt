@@ -3,14 +3,13 @@ package com.mehyo.marvelcharacters.network
 import com.mehyo.marvelcharacters.data.BaseResponse
 import com.mehyo.marvelcharacters.data.Character
 import com.mehyo.marvelcharacters.data.DefaultObject
+import com.mehyo.marvelcharacters.utils.Constants
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MarvelAPI {
-    val apikey: String
-        get() = "d86ae6a1cfabd6af57ca0206b512a57a"
-    val hash: String
-        get() = "9e3eb4c296003861be7cb4b524fc43fb"
 
     /**
      * suspending function for GET "characters" network call.
@@ -22,8 +21,8 @@ interface MarvelAPI {
         @Query("limit") page_size: Int,
         @Query("offset") page: Int,
         @Query("ts") ts: Int = 1,
-        @Query("apikey") apikey: String = this.apikey,
-        @Query("hash") hash: String = this.hash
+        @Query("apikey") apikey: String = Constants.apikey,
+        @Query("hash") hash: String = Constants.hash
     ): Response<BaseResponse<Character>>
 
     /**
@@ -36,8 +35,8 @@ interface MarvelAPI {
     suspend fun getCharacterById(
         @Path("characterId") characterId: Int,
         @Query("ts") ts: Int = 1,
-        @Query("apikey") apikey: String = this.apikey,
-        @Query("hash") hash: String = this.hash
+        @Query("apikey") apikey: String = Constants.apikey,
+        @Query("hash") hash: String = Constants.hash
     ): Response<BaseResponse<Character>>
 
     /**
@@ -52,8 +51,8 @@ interface MarvelAPI {
         @Query("limit") page_size: Int = 3,
         @Query("orderBy") order: String = "focDate",
         @Query("ts") ts: Int = 1,
-        @Query("apikey") apikey: String = this.apikey,
-        @Query("hash") hash: String = this.hash
+        @Query("apikey") apikey: String = Constants.apikey,
+        @Query("hash") hash: String = Constants.hash
     ): Response<BaseResponse<DefaultObject>>
 
     /**
@@ -68,8 +67,8 @@ interface MarvelAPI {
         @Query("limit") page_size: Int = 3,
         @Query("orderBy") order: String = "startDate",
         @Query("ts") ts: Int = 1,
-        @Query("apikey") apikey: String = this.apikey,
-        @Query("hash") hash: String = this.hash
+        @Query("apikey") apikey: String = Constants.apikey,
+        @Query("hash") hash: String = Constants.hash
     ): Response<BaseResponse<DefaultObject>>
 
     /**
@@ -84,8 +83,8 @@ interface MarvelAPI {
         @Query("limit") page_size: Int = 3,
         @Query("orderBy") order: String = "modified",
         @Query("ts") ts: Int = 1,
-        @Query("apikey") apikey: String = this.apikey,
-        @Query("hash") hash: String = this.hash
+        @Query("apikey") apikey: String = Constants.apikey,
+        @Query("hash") hash: String = Constants.hash
     ): Response<BaseResponse<DefaultObject>>
 
     /**
@@ -100,8 +99,8 @@ interface MarvelAPI {
         @Query("limit") page_size: Int = 3,
         @Query("orderBy") order: String = "startYear",
         @Query("ts") ts: Int = 1,
-        @Query("apikey") apikey: String = this.apikey,
-        @Query("hash") hash: String = this.hash
+        @Query("apikey") apikey: String = Constants.apikey,
+        @Query("hash") hash: String = Constants.hash
     ): Response<BaseResponse<DefaultObject>>
 
 }
