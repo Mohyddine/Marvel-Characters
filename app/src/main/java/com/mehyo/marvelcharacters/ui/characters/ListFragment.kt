@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.mehyo.marvelcharacters.databinding.FragmentListBinding
-import com.mehyo.marvelcharacters.utils.gone
-import com.mehyo.marvelcharacters.utils.visible
 
 class ListFragment : Fragment() {
 
@@ -34,34 +32,8 @@ class ListFragment : Fragment() {
     private fun initListeners() {
         binding.apply {
             fabSearch.setOnClickListener {
-                searchView.apply {
-                    visible()
-                    setIconifiedByDefault(true)
-                    isFocusable = true
-                    isIconified = false
-                }
+                findNavController().navigate(ListFragmentDirections.actionListFragmentToDetailsFragment())
             }
-            searchView.setOnCloseListener {
-                searchView.apply {
-                    gone()
-                    clearFocus()
-                }
-                false
-            }
-            searchView.setOnQueryTextListener(object : OnQueryTextListener {
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    return false
-                }
-
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    searchView.apply {
-                        gone()
-                        clearFocus()
-                        setQuery("", false)
-                    }
-                    return false
-                }
-            })
         }
     }
 

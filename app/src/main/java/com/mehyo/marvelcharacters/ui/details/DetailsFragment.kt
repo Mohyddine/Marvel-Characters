@@ -5,10 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.mehyo.marvelcharacters.R
+import com.mehyo.marvelcharacters.data.Character
 import com.mehyo.marvelcharacters.databinding.FragmentDetailsBinding
 import com.mehyo.marvelcharacters.network.ResourceState
 import com.mehyo.marvelcharacters.utils.gone
@@ -20,6 +23,7 @@ class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
     private val detailsViewModel: DetailsViewModel by sharedViewModel()
+    private val args: DetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +35,12 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("mehyos", "start")
-        getData(1017100)
+        if (args.characterId == -1) {
+            requireActivity().onBackPressed()
+            Toast.makeText(requireContext(), getText(R.string.general_error), Toast.LENGTH_SHORT)
+                .show()
+        }
+        getData(args.characterId)
         initObservables()
         initViews()
         initListeners()
@@ -47,9 +55,30 @@ class DetailsFragment : Fragment() {
     }
 
     private fun initListeners() {
+        binding.btnRefresh.setOnClickListener {
+            getData(args.characterId)
+        }
     }
 
     private fun initViews() {
+    }
+
+    private fun initCharacterInfo(character: Character) {
+        val imageUrl =
+            "${character.thumbnail?.path}.${character.thumbnail?.extension}"
+                .replace("http:", "https:")
+        binding.apply {
+            ivCharacter.load(imageUrl) {
+                crossfade(true)
+                placeholder(R.drawable.ic_image)
+                transformations(CircleCropTransformation())
+                error(R.drawable.ic_image)
+            }
+            tvId.text = character.id.toString()
+            tvName.text = character.name
+            tvBio.text =
+                if (character.description.isNullOrBlank()) "bio is not available" else character.description
+        }
     }
 
     private fun initObservables() {
@@ -60,7 +89,8 @@ class DetailsFragment : Fragment() {
                         detailsFragment.gone()
                         shimmer.visible()
                         shimmer.startShimmer()
-                        //    btnRefresh.gone()
+                        tvError.gone()
+                        btnRefresh.gone()
                     }
                 }
 
@@ -70,41 +100,19 @@ class DetailsFragment : Fragment() {
                             shimmer.gone()
                             shimmer.stopShimmer()
                             detailsFragment.visible()
-                            //    btnRefresh.gone()
                         }
-                        //initList(listPostsData)
-                        val imageUrl =
-                            "${character.thumbnail?.path}.${character.thumbnail?.extension}".replace(
-                                "http:",
-                                "https:"
-                            )
-                        binding.apply {
-                            ivCharacter.load(imageUrl) {
-                                crossfade(true)
-                                placeholder(R.drawable.ic_image)
-                                transformations(CircleCropTransformation())
-                                error(R.drawable.ic_image)
-                            }
-                            tvId.text = character.id.toString()
-                            tvName.text = character.name
-                            tvBio.text =
-                                if (character.description.isNullOrBlank()) "bio is not available" else character.description
-                        }
-                        Log.d("mehyos", "success " + imageUrl)
-                        Log.d("mehyos", "$character")
+                        initCharacterInfo(character)
                     }
                 }
 
                 is ResourceState.ERROR -> {
                     binding.apply {
                         shimmer.gone()
+                        detailsFragment.gone()
                         shimmer.stopShimmer()
-                        //    tvError.visible()
-                        //    btnRefresh.visible()
+                        tvError.visible()
+                        btnRefresh.visible()
                     }
-                    //initList(emptyList())
-                    Log.d("mehyos", "error")
-                    Log.d("mehyos", result.exception?.localizedMessage.toString())
                 }
             }
         }
