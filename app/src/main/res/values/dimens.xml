@@ -2,19 +2,33 @@
 <resources>
 
     <dimen name="zero_dp">0dp</dimen>
+    <dimen name="zero.one">0.1dp</dimen>
     <dimen name="one">1dp</dimen>
+    <dimen name="one.five">1dp</dimen>
     <dimen name="five">5dp</dimen>
+    <dimen name="eight">5dp</dimen>
     <dimen name="ten">10dp</dimen>
     <dimen name="twelve">12dp</dimen>
+    <dimen name="fifteen">15dp</dimen>
     <dimen name="sixteen">16dp</dimen>
     <dimen name="eighteen">18dp</dimen>
+    <dimen name="twenty_four">20dp</dimen>
     <dimen name="twenty">20dp</dimen>
     <dimen name="thirty">30dp</dimen>
+    <dimen name="thirty_five">35dp</dimen>
     <dimen name="fifty">50dp</dimen>
+    <dimen name="sixty">60dp</dimen>
     <dimen name="seventy_five">75dp</dimen>
+    <dimen name="eighty">80dp</dimen>
     <dimen name="eighty_five">85dp</dimen>
+    <dimen name="one_hundred">100dp</dimen>
     <dimen name="one_hundred_twenty">120dp</dimen>
+    <dimen name="one_hundred_thirty">130dp</dimen>
+    <dimen name="one_hundred_eighty">180dp</dimen>
+    <dimen name="two_hundred">200dp</dimen>
+    <dimen name="two_hundred_fifty">250dp</dimen>
     <dimen name="screen_space">16dp</dimen>
+    <dimen name="larg_text_size">20sp</dimen>
     <dimen name="normal_text_size">16sp</dimen>
     <dimen name="small_text_size">12sp</dimen>
 

@@ -5,23 +5,22 @@
     android:id="@+id/cardview"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/eight"
     app:cardBackgroundColor="@color/white_red"
-    app:cardCornerRadius="15dp"
+    app:cardCornerRadius="@dimen/fifteen"
     app:strokeColor="@color/black"
-    app:strokeWidth="0.1dp">
+    app:strokeWidth="@dimen/zero.one">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ImageView
             android:id="@+id/ivBook"
-            android:layout_width="100dp"
-            android:layout_height="130dp"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="8dp"
+            android:layout_width="@dimen/one_hundred"
+            android:layout_height="@dimen/one_hundred_thirty"
+            android:layout_marginHorizontal="@dimen/eight"
+            android:layout_marginVertical="@dimen/eight"
             android:src="@drawable/ic_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,12 +29,12 @@
 
         <TextView
             android:id="@+id/tvBookName"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
             android:lines="3"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/normal_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/ivBook"
             app:layout_constraintStart_toStartOf="@id/ivBook"

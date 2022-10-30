@@ -4,4 +4,11 @@
     <string name="general_error">Something went wrong</string>
     <string name="refresh">Refresh</string>
     <string name="character_details">Character Details</string>
+    <string name="id_lbl">ID:</string>
+    <string name="name_lbl">Name:</string>
+    <string name="bio_lbl">Bio:</string>
+    <string name="comics_lbl">Comics</string>
+    <string name="events_lbl">Events</string>
+    <string name="stories_lbl">Stories</string>
+    <string name="series">Series</string>
 </resources>
