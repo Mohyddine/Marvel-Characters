@@ -2,6 +2,7 @@ package com.mehyo.marvelcharacters.di
 
 import com.mehyo.marvelcharacters.network.MarvelAPI
 import com.mehyo.marvelcharacters.repository.NetworkRepository
+import com.mehyo.marvelcharacters.ui.characters.ListViewModel
 import com.mehyo.marvelcharacters.ui.details.DetailsViewModel
 import com.mehyo.marvelcharacters.utils.Constants
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -44,5 +45,6 @@ val repositoryModule = module {
  * to inject viewModel objects the when needed.
  */
 val viewModelModule = module {
+    viewModel { ListViewModel(repository = get()) }
     viewModel { DetailsViewModel(repository = get()) }
 }

@@ -18,7 +18,7 @@ interface MarvelAPI {
 
     @GET("characters")
     suspend fun getCharacters(
-        @Query("limit") page_size: Int,
+        @Query("limit") page_size: Int = 50,
         @Query("offset") page: Int,
         @Query("ts") ts: Int = 1,
         @Query("apikey") apikey: String = Constants.apikey,

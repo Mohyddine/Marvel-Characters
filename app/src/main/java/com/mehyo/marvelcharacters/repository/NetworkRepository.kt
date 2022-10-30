@@ -10,9 +10,8 @@ class NetworkRepository(private val api: MarvelAPI) {
      * @return all characters.
      */
     suspend fun getCharacters(
-        page_size: Int,
         page: Int
-    ) = api.getCharacters(page_size, page)
+    ) = api.getCharacters(page = page)
 
     /**
      * suspending function to
