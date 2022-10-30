@@ -12,6 +12,9 @@ class ListViewModel(
     private val repository: NetworkRepository
 ) : ViewModel() {
 
+    /**
+     * initialise the flow of MarvelPagingSource.
+     */
     val data = Pager(PagingConfig(1)) {
         MarvelPagingSource(repository)
     }.flow.cachedIn(viewModelScope)

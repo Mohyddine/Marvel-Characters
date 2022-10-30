@@ -13,10 +13,14 @@ class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder>() 
 
     private var list = arrayListOf<DefaultObject>()
 
+    /**
+     * ViewHolder created for the Recyclerview Adapter
+     * also to set the data in each row in the UI.
+     */
     inner class DetailsViewHolder(private val binding: SmallItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         /**
-         * Set the data in each row in the UI
+         * Set the data in each row in the UI.
          */
         fun bind(book: DefaultObject) {
             binding.apply {
@@ -35,7 +39,7 @@ class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder>() 
 
     /**
      * function for adding
-     * all the posts to the list
+     * all the objects to the list
      * then updating it.
      */
     @SuppressLint("NotifyDataSetChanged")

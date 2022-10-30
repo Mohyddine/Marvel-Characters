@@ -26,7 +26,7 @@ class ListFragment : Fragment() {
     private val viewModel: ListViewModel by sharedViewModel()
     private val listAdapter by lazy {
         ListAdapter(
-            onCharacterCardClickListener = { cardData -> onCardChecked(cardData) }
+            onCharacterCardClickListener = { cardData -> onCardClicked(cardData) }
         )
     }
 
@@ -77,12 +77,11 @@ class ListFragment : Fragment() {
             }
             handleError(loadState)
         }
-        binding.rvCharacters.adapter = listAdapter.withLoadStateHeaderAndFooter(
-            header = ListLoadStateAdapter { listAdapter.retry() },
-            footer = ListLoadStateAdapter { listAdapter.retry() }
-        )
     }
 
+    /**
+     * function to handleError due to connection or any other reason.
+     */
     private fun handleError(loadStates: CombinedLoadStates) {
         val errorState = loadStates.append as? LoadState.Error
             ?: loadStates.prepend as? LoadState.Error
@@ -91,11 +90,18 @@ class ListFragment : Fragment() {
         }
     }
 
+    /**
+     * function to initViews also containing the ListLoadState logic.
+     */
     private fun initViews() {
         binding.apply {
             rvCharacters.apply {
                 adapter = listAdapter
             }
+            rvCharacters.adapter = listAdapter.withLoadStateHeaderAndFooter(
+                header = ListLoadStateAdapter { listAdapter.retry() },
+                footer = ListLoadStateAdapter { listAdapter.retry() }
+            )
         }
     }
 
@@ -107,7 +113,11 @@ class ListFragment : Fragment() {
         }
     }
 
-    private fun onCardChecked(character: Character) {
+    /**
+     * function to navigate to DetailsFragment with sending the character.id
+     * after receiving the character object from the adapter.
+     */
+    private fun onCardClicked(character: Character) {
         findNavController().navigate(
             ListFragmentDirections.actionListFragmentToDetailsFragment(
                 character.id

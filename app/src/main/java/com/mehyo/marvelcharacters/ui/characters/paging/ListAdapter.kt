@@ -15,6 +15,11 @@ class ListAdapter(
     private val onCharacterCardClickListener: (Character) -> Unit = {}
 ) : PagingDataAdapter<Character, ListAdapter.ListViewHolder>(ITEM_COMPARATOR) {
 
+    /**
+     * ViewHolder created for the Recyclerview Adapter to
+     * set the data in each row in the UI and to
+     * implement on item ClickListener.
+     */
     inner class ListViewHolder(private val binding: ItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Character, onCharacterCardClickListener: (Character) -> Unit) {
@@ -34,7 +39,9 @@ class ListAdapter(
         }
     }
 
-    //checking for data change
+    /**
+     * checking and comparing data changes.
+     */
     companion object {
         private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<Character>() {
             override fun areItemsTheSame(oldItem: Character, newItem: Character) =

@@ -1,7 +1,6 @@
 package com.mehyo.marvelcharacters.ui.details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +37,11 @@ class DetailsFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * 1st Checking if the id is not received successfully
+     * if true then force the user return to the list screen.
+     * 2nd get the data and init observables, views and listeners.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (args.characterId == -1) {
@@ -51,6 +55,10 @@ class DetailsFragment : Fragment() {
         initListeners()
     }
 
+    /**
+     * function to get character details, comics, stories, events
+     * and series using the viewModel.
+     */
     private fun getData(CharacterId: Int) {
         detailsViewModel.getCharacterByIdAsync(CharacterId)
         detailsViewModel.getCharacterComicsByIdAsync(CharacterId)
@@ -58,6 +66,10 @@ class DetailsFragment : Fragment() {
         detailsViewModel.getCharacterStoriesByIdAsync(CharacterId)
         detailsViewModel.getCharacterSeriesByIdAsync(CharacterId)
     }
+
+    /**
+     * function to initialise the listeners.
+     */
 
     private fun initListeners() {
         binding.btnRefresh.setOnClickListener {
@@ -68,6 +80,9 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    /**
+     * function to initialise the views.
+     */
     private fun initViews() {
         binding.rvComics.adapter = comicsAdapter
         binding.rvEvents.adapter = eventsAdapter
@@ -75,6 +90,9 @@ class DetailsFragment : Fragment() {
         binding.rvSeries.adapter = seriesAdapter
     }
 
+    /**
+     * function to initialise CharacterInfo when received from the observables.
+     */
     private fun initCharacterInfo(character: Character) {
         val imageUrl =
             "${character.thumbnail?.path}.${character.thumbnail?.extension}"
@@ -132,7 +150,6 @@ class DetailsFragment : Fragment() {
         detailsViewModel.comicsResultLiveData.observe(viewLifecycleOwner) { result ->
             when (result.state) {
                 is ResourceState.LOADING -> {
-                    Log.d("mehyos", "loading comics")
                     binding.tvComics.gone()
                     binding.rvComics.gone()
                 }
@@ -141,7 +158,6 @@ class DetailsFragment : Fragment() {
                     result.data?.let { comicsList: List<DefaultObject> ->
                         binding.tvComics.visible()
                         binding.rvComics.visible()
-                        Log.d("mehyos", "success comics")
                         if (comicsList.isEmpty()) {
                             binding.tvComics.gone()
                             binding.rvComics.gone()
@@ -154,8 +170,6 @@ class DetailsFragment : Fragment() {
                     binding.tvComics.gone()
                     binding.rvComics.gone()
                     comicsAdapter.setData(emptyList())
-                    Log.d("mehyos", "error comics")
-                    Log.d("mehyos", result.exception?.localizedMessage.toString())
                 }
             }
         }
@@ -163,7 +177,6 @@ class DetailsFragment : Fragment() {
         detailsViewModel.eventsResultLiveData.observe(viewLifecycleOwner) { result ->
             when (result.state) {
                 is ResourceState.LOADING -> {
-                    Log.d("mehyos", "loading events")
                     binding.tvEvents.gone()
                     binding.rvEvents.gone()
                 }
@@ -172,7 +185,6 @@ class DetailsFragment : Fragment() {
                     result.data?.let { eventsList: List<DefaultObject> ->
                         binding.tvEvents.visible()
                         binding.rvEvents.visible()
-                        Log.d("mehyos", "success events")
                         if (eventsList.isEmpty()) {
                             binding.tvEvents.gone()
                             binding.rvEvents.gone()
@@ -185,8 +197,6 @@ class DetailsFragment : Fragment() {
                     binding.tvEvents.gone()
                     binding.rvEvents.gone()
                     comicsAdapter.setData(emptyList())
-                    Log.d("mehyos", "error events")
-                    Log.d("mehyos", result.exception?.localizedMessage.toString())
                 }
             }
         }
@@ -194,7 +204,6 @@ class DetailsFragment : Fragment() {
         detailsViewModel.storiesResultLiveData.observe(viewLifecycleOwner) { result ->
             when (result.state) {
                 is ResourceState.LOADING -> {
-                    Log.d("mehyos", "loading stories")
                     binding.tvStories.gone()
                     binding.rvStories.gone()
                 }
@@ -203,7 +212,6 @@ class DetailsFragment : Fragment() {
                     result.data?.let { storiesList: List<DefaultObject> ->
                         binding.tvStories.visible()
                         binding.rvStories.visible()
-                        Log.d("mehyos", "success stories")
                         if (storiesList.isEmpty()) {
                             binding.tvStories.gone()
                             binding.rvStories.gone()
@@ -216,8 +224,6 @@ class DetailsFragment : Fragment() {
                     binding.tvStories.gone()
                     binding.rvStories.gone()
                     storiesAdapter.setData(emptyList())
-                    Log.d("mehyos", "error stories")
-                    Log.d("mehyos", result.exception?.localizedMessage.toString())
                 }
             }
         }
@@ -225,7 +231,6 @@ class DetailsFragment : Fragment() {
         detailsViewModel.seriesResultLiveData.observe(viewLifecycleOwner) { result ->
             when (result.state) {
                 is ResourceState.LOADING -> {
-                    Log.d("mehyos", "loading series")
                     binding.tvSeries.gone()
                     binding.rvSeries.gone()
                 }
@@ -234,7 +239,6 @@ class DetailsFragment : Fragment() {
                     result.data?.let { seriesList: List<DefaultObject> ->
                         binding.tvSeries.visible()
                         binding.rvSeries.visible()
-                        Log.d("mehyos", "success series")
                         if (seriesList.isEmpty()) {
                             binding.tvSeries.gone()
                             binding.rvSeries.gone()
@@ -247,8 +251,6 @@ class DetailsFragment : Fragment() {
                     binding.tvSeries.gone()
                     binding.rvSeries.gone()
                     seriesAdapter.setData(emptyList())
-                    Log.d("mehyos", "error series")
-                    Log.d("mehyos", result.exception?.localizedMessage.toString())
                 }
             }
         }

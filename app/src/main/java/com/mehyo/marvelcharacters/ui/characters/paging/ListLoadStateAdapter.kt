@@ -7,6 +7,9 @@ import androidx.paging.LoadStateAdapter
 class ListLoadStateAdapter(
     private val retry: () -> Unit
 ) : LoadStateAdapter<LoadStateViewHolder>() {
+    /**
+     * LoadStateAdapter to change user behaviour according to LoadStates.
+     */
     override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {
         holder.bind(loadState)
     }

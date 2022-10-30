@@ -14,6 +14,9 @@ class MarvelPagingSource(
         return null
     }
 
+    /**
+     * function to load data based on current next and previous pages.
+     */
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
         return try {
             val currentPage = params.key ?: 0
