@@ -1,4 +1,4 @@
-## Marvel Characters
+# Marvel Characters
 
 ## Android Mini Exercise
 
