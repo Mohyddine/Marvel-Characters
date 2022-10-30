@@ -12,6 +12,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.mehyo.marvelcharacters.R
 import com.mehyo.marvelcharacters.data.Character
+import com.mehyo.marvelcharacters.data.DefaultObject
 import com.mehyo.marvelcharacters.databinding.FragmentDetailsBinding
 import com.mehyo.marvelcharacters.network.ResourceState
 import com.mehyo.marvelcharacters.utils.gone
@@ -24,6 +25,10 @@ class DetailsFragment : Fragment() {
     private val binding get() = _binding!!
     private val detailsViewModel: DetailsViewModel by sharedViewModel()
     private val args: DetailsFragmentArgs by navArgs()
+    private val comicsAdapter by lazy { DetailsAdapter() }
+    private val eventsAdapter by lazy { DetailsAdapter() }
+    private val storiesAdapter by lazy { DetailsAdapter() }
+    private val seriesAdapter by lazy { DetailsAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,19 +53,26 @@ class DetailsFragment : Fragment() {
 
     private fun getData(CharacterId: Int) {
         detailsViewModel.getCharacterByIdAsync(CharacterId)
-        //detailsViewModel.getCharacterComicsByIdAsync(CharacterId)
-        //detailsViewModel.getCharacterEventsByIdAsync(CharacterId)
-        //detailsViewModel.getCharacterStoriesByIdAsync(CharacterId)
-        //detailsViewModel.getCharacterSeriesByIdAsync(CharacterId)
+        detailsViewModel.getCharacterComicsByIdAsync(CharacterId)
+        detailsViewModel.getCharacterEventsByIdAsync(CharacterId)
+        detailsViewModel.getCharacterStoriesByIdAsync(CharacterId)
+        detailsViewModel.getCharacterSeriesByIdAsync(CharacterId)
     }
 
     private fun initListeners() {
         binding.btnRefresh.setOnClickListener {
             getData(args.characterId)
         }
+        binding.ivRefresh.setOnClickListener {
+            getData(args.characterId)
+        }
     }
 
     private fun initViews() {
+        binding.rvComics.adapter = comicsAdapter
+        binding.rvEvents.adapter = eventsAdapter
+        binding.rvStories.adapter = storiesAdapter
+        binding.rvSeries.adapter = seriesAdapter
     }
 
     private fun initCharacterInfo(character: Character) {
@@ -117,121 +129,125 @@ class DetailsFragment : Fragment() {
             }
         }
 
-        detailsViewModel.characterDetailsResultLiveData.observe(viewLifecycleOwner) { result ->
+        detailsViewModel.comicsResultLiveData.observe(viewLifecycleOwner) { result ->
             when (result.state) {
                 is ResourceState.LOADING -> {
-                    //binding.apply {
-                    //    progressBar.visible()
-                    //    fabAdd.gone()
-                    //    tvError.gone()
-                    //    btnRefresh.gone()
-                    //}
-                    Log.d("mehyos", "loading")
+                    Log.d("mehyos", "loading comics")
+                    binding.tvComics.gone()
+                    binding.rvComics.gone()
                 }
 
                 is ResourceState.SUCCESS -> {
-                    result.data?.let { character ->
-                        //binding.apply {
-                        //    fabAdd.visible()
-                        //    progressBar.gone()
-                        //    tvError.gone()
-                        //    btnRefresh.gone()
-                        //}
-                        //initList(listPostsData)
-                        Log.d("mehyos", "success")
-                        Log.d("mehyos", "$character")
+                    result.data?.let { comicsList: List<DefaultObject> ->
+                        binding.tvComics.visible()
+                        binding.rvComics.visible()
+                        Log.d("mehyos", "success comics")
+                        if (comicsList.isEmpty()) {
+                            binding.tvComics.gone()
+                            binding.rvComics.gone()
+                        }
+                        comicsAdapter.setData(comicsList)
                     }
                 }
 
                 is ResourceState.ERROR -> {
-                    //binding.apply {
-                    //    progressBar.gone()
-                    //    fabAdd.gone()
-                    //    tvError.visible()
-                    //    btnRefresh.visible()
-                    //}
-                    //initList(emptyList())
-                    Log.d("mehyos", "error")
+                    binding.tvComics.gone()
+                    binding.rvComics.gone()
+                    comicsAdapter.setData(emptyList())
+                    Log.d("mehyos", "error comics")
                     Log.d("mehyos", result.exception?.localizedMessage.toString())
                 }
             }
         }
 
-        detailsViewModel.characterDetailsResultLiveData.observe(viewLifecycleOwner) { result ->
+        detailsViewModel.eventsResultLiveData.observe(viewLifecycleOwner) { result ->
             when (result.state) {
                 is ResourceState.LOADING -> {
-                    //binding.apply {
-                    //    progressBar.visible()
-                    //    fabAdd.gone()
-                    //    tvError.gone()
-                    //    btnRefresh.gone()
-                    //}
-                    Log.d("mehyos", "loading")
+                    Log.d("mehyos", "loading events")
+                    binding.tvEvents.gone()
+                    binding.rvEvents.gone()
                 }
 
                 is ResourceState.SUCCESS -> {
-                    result.data?.let { character ->
-                        //binding.apply {
-                        //    fabAdd.visible()
-                        //    progressBar.gone()
-                        //    tvError.gone()
-                        //    btnRefresh.gone()
-                        //}
-                        //initList(listPostsData)
-                        Log.d("mehyos", "success")
-                        Log.d("mehyos", "$character")
+                    result.data?.let { eventsList: List<DefaultObject> ->
+                        binding.tvEvents.visible()
+                        binding.rvEvents.visible()
+                        Log.d("mehyos", "success events")
+                        if (eventsList.isEmpty()) {
+                            binding.tvEvents.gone()
+                            binding.rvEvents.gone()
+                        }
+                        eventsAdapter.setData(eventsList)
                     }
                 }
 
                 is ResourceState.ERROR -> {
-                    //binding.apply {
-                    //    progressBar.gone()
-                    //    fabAdd.gone()
-                    //    tvError.visible()
-                    //    btnRefresh.visible()
-                    //}
-                    //initList(emptyList())
-                    Log.d("mehyos", "error")
+                    binding.tvEvents.gone()
+                    binding.rvEvents.gone()
+                    comicsAdapter.setData(emptyList())
+                    Log.d("mehyos", "error events")
                     Log.d("mehyos", result.exception?.localizedMessage.toString())
                 }
             }
         }
 
-        detailsViewModel.characterDetailsResultLiveData.observe(viewLifecycleOwner) { result ->
+        detailsViewModel.storiesResultLiveData.observe(viewLifecycleOwner) { result ->
             when (result.state) {
                 is ResourceState.LOADING -> {
-                    //binding.apply {
-                    //    progressBar.visible()
-                    //    fabAdd.gone()
-                    //    tvError.gone()
-                    //    btnRefresh.gone()
-                    //}
-                    Log.d("mehyos", "loading")
+                    Log.d("mehyos", "loading stories")
+                    binding.tvStories.gone()
+                    binding.rvStories.gone()
                 }
 
                 is ResourceState.SUCCESS -> {
-                    result.data?.let { character ->
-                        //binding.apply {
-                        //    fabAdd.visible()
-                        //    progressBar.gone()
-                        //    tvError.gone()
-                        //    btnRefresh.gone()
-                        //}
-                        //initList(listPostsData)
-                        Log.d("mehyos", "success")
-                        Log.d("mehyos", "$character")
+                    result.data?.let { storiesList: List<DefaultObject> ->
+                        binding.tvStories.visible()
+                        binding.rvStories.visible()
+                        Log.d("mehyos", "success stories")
+                        if (storiesList.isEmpty()) {
+                            binding.tvStories.gone()
+                            binding.rvStories.gone()
+                        }
+                        storiesAdapter.setData(storiesList)
                     }
                 }
 
                 is ResourceState.ERROR -> {
-                    //binding.apply {
-                    //    progressBar.gone()
-                    //    fabAdd.gone()
-                    //    tvError.visible()
-                    //    btnRefresh.visible()
-                    //}
-                    //initList(emptyList())
-                    Log.d("mehyos", "error")
+                    binding.tvStories.gone()
+                    binding.rvStories.gone()
+                    storiesAdapter.setData(emptyList())
+                    Log.d("mehyos", "error stories")
+                    Log.d("mehyos", result.exception?.localizedMessage.toString())
+                }
+            }
+        }
+
+        detailsViewModel.seriesResultLiveData.observe(viewLifecycleOwner) { result ->
+            when (result.state) {
+                is ResourceState.LOADING -> {
+                    Log.d("mehyos", "loading series")
+                    binding.tvSeries.gone()
+                    binding.rvSeries.gone()
+                }
+
+                is ResourceState.SUCCESS -> {
+                    result.data?.let { seriesList: List<DefaultObject> ->
+                        binding.tvSeries.visible()
+                        binding.rvSeries.visible()
+                        Log.d("mehyos", "success series")
+                        if (seriesList.isEmpty()) {
+                            binding.tvSeries.gone()
+                            binding.rvSeries.gone()
+                        }
+                        seriesAdapter.setData(seriesList)
+                    }
+                }
+
+                is ResourceState.ERROR -> {
+                    binding.tvSeries.gone()
+                    binding.rvSeries.gone()
+                    seriesAdapter.setData(emptyList())
+                    Log.d("mehyos", "error series")
                     Log.d("mehyos", result.exception?.localizedMessage.toString())
                 }
             }
