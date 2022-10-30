@@ -11,18 +11,25 @@ import com.mehyo.marvelcharacters.R
 import com.mehyo.marvelcharacters.data.Character
 import com.mehyo.marvelcharacters.databinding.ItemRowBinding
 
-class ListAdapter : PagingDataAdapter<Character, ListAdapter.ListViewHolder>(ITEM_COMPARATOR) {
+class ListAdapter(
+    private val onCharacterCardClickListener: (Character) -> Unit = {}
+) : PagingDataAdapter<Character, ListAdapter.ListViewHolder>(ITEM_COMPARATOR) {
 
     inner class ListViewHolder(private val binding: ItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Character) {
-            binding.tvName.text = data.name
+        fun bind(data: Character, onCharacterCardClickListener: (Character) -> Unit) {
             val imgUrl =
                 "${data.thumbnail?.path}.${data.thumbnail?.extension}".replace("http:", "https:")
-            binding.ivAvatar.load(imgUrl) {
-                crossfade(true)
-                placeholder(R.drawable.ic_image)
-                transformations(CircleCropTransformation())
+            binding.apply {
+                tvName.text = data.name
+                ivAvatar.load(imgUrl) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_image)
+                    transformations(CircleCropTransformation())
+                }
+                cardview.setOnClickListener {
+                    onCharacterCardClickListener(data)
+                }
             }
         }
     }
@@ -41,7 +48,7 @@ class ListAdapter : PagingDataAdapter<Character, ListAdapter.ListViewHolder>(ITE
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val characterItem = getItem(position)
         characterItem?.let { character ->
-            holder.bind(character)
+            holder.bind(character, onCharacterCardClickListener)
         }
     }
 
